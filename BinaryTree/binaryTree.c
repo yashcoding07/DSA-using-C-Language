@@ -20,6 +20,41 @@ struct Node* createNode(int value){
     return newNode;
 }
 
+// function to insert a new node
+
+struct Node* insert(struct Node* root, int value){
+    if(root == NULL){
+        return createNode(value);
+    }
+
+    if(value < root->data){
+        root->left = insert(root->left, value);
+    }else if(value > root->data){
+        root->right = insert(root->right, value);
+    }
+
+    return root;
+}
+
+// Searching an element in the key
+
+void search(struct Node* root, int key){
+    if(root == NULL){
+        printf("Element not found\n");
+        return;
+    }
+
+    if(key == root->data){
+        printf("Element found in BST\n");
+    }
+
+    if(key < root->data){
+        search(root->left, key);
+    }else{
+        search(root->right, key);
+    }
+}
+
 // Traversal techniques
 void preOrder(struct Node *root){
     if(root != NULL){
@@ -50,12 +85,10 @@ void inOrder(struct Node *root){
 int main(){
 
     struct Node *root = createNode(1);
-    root->left = createNode(2);
-    root->right = createNode(3);
-    root->left->left = createNode(4);
-    root->left->right = createNode(5);
-    root->right->left = createNode(6);
-    root->right->right = createNode(7);
+    insert(root ,2);
+    insert(root ,3);
+    insert(root, 6);
+    search(root, 3);
 
     printf("Preorder traversal: \n");
     preOrder(root);
